@@ -1,25 +1,37 @@
 @extends('layouts.app')
 
-@section('title', 'Nieuwe Post')
+@if ($errors->any())
+    <div style="color:red;">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 
 @section('content')
-    <h1>Nieuwe Post Aanmaken</h1>
+    <h1>Maak een nieuwe post</h1>
 
-    <form method="POST" action="{{ route('posts.store') }}">
+    <form action="{{ route('posts.store') }}" method="POST">
         @csrf
+        
+        <div>
+            <label for="title">Gerecht naam</label>
+            <input type="text" name="title" id="title" required>
+        </div>
 
-        <label for="title">Titel:</label>
-        <input type="text" id="title" name="title" required>
+        <div>
+            <label for="body">Inhoud</label>
+            <textarea name="body" id="body" required></textarea>
+        </div>
 
-        <label for="body">Inhoud:</label>
-        <textarea id="body" name="body" required></textarea>
+        <div>
+            <label for="price">Prijs (€)</label>
+            <input type="text" name="price" id="price" required>
+        </div>
 
-        <label>Prijs (€):</label>
-        <input type="number" name="price" step="0.01" required><br><br>>
-
-        <button type="submit">Opslaan</button>
+        <button type="submit">Post opslaan</button>
     </form>
-
-    <br>
-    <a href="{{ route('posts.index') }}">⬅️ Terug naar overzicht</a>
 @endsection

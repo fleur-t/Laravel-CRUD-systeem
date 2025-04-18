@@ -1,27 +1,27 @@
 @extends('layouts.app')
 
-@section('title', 'Post Bewerken')
-
 @section('content')
-    <h1>Post Bewerken</h1>
+    <h1>Bewerk gerecht</h1>
 
-    <form method="POST" action="{{ route('posts.update', $post->id) }}">
+    <form action="{{ route('posts.update', $post->id) }}" method="POST">
         @csrf
         @method('PUT')
 
-        <label for="title">Titel:</label>
-        <input type="text" id="title" name="title" value="{{ old('title', $post->title) }}" required>
+        <div>
+            <label>Titel</label>
+            <input type="text" name="title" value="{{ $post->title }}" required>
+        </div>
 
-        <label for="body">Inhoud:</label>
-        <textarea id="body" name="body" required>{{ old('body', $post->body) }}</textarea>
+        <div>
+            <label>Inhoud</label>
+            <textarea name="body" required>{{ $post->body }}</textarea>
+        </div>
 
-        <label>Prijs (€):</label>
-        <input type="number" name="price" step="0.01" value="{{ old('price', $post->price) }}" required><br><br>
-
+        <div>
+            <label>Prijs</label>
+            <input type="text" name="price" value="{{ $post->price }}" required>
+        </div>
 
         <button type="submit">Bijwerken</button>
     </form>
-
-    <br>
-    <a href="{{ route('posts.index') }}">⬅️ Terug naar overzicht</a>
 @endsection

@@ -2,50 +2,64 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Post;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index() {
+    public function index()
+    {
+        $posts = Post::all(); // Haalt alle posts op
+        return view('posts.index', compact('posts')); // Stuur posts naar de view
+    }
+
+        public function menu()
+    {
         $posts = Post::all();
-        return view('posts.index', compact('posts'));
+        return view('menu', compact('posts'));
     }
-    
-    public function create() {
-        return view('posts.create');
-    }
-    
-    public function store(Request $request) {
-        Post::create($request->validate([
-            'title' => 'required',
-            'body' => 'required',
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'body' => 'required|string',
             'price' => 'required|numeric',
-        ]));
-    }
+        ]);
     
-    public function show(Post $post) {
-        return view('posts.show', compact('post'));
-    }
+        Post::create($validated);
     
-    public function edit(Post $post) {
+        return redirect()->route('posts.index')->with('success', 'Gerecht toegevoegd!');
+    }
+
+    // Bewerk een specifieke post
+    public function edit(Post $post)
+    {
         return view('posts.edit', compact('post'));
     }
-    
-    public function update(Request $request, Post $post) {
-        $post->update($request->validate([
-            'title' => 'required',
-            'body' => 'required',
+
+    // Werk de post bij
+    public function update(Request $request, Post $post)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'body' => 'required|string',
             'price' => 'required|numeric',
-        ]));
-        
+        ]);
     
-        return redirect()->route('posts.index');
+        $post->update($request->only('title', 'body', 'price'));
+    
+        return redirect()->route('posts.index')->with('success', 'Gerecht bijgewerkt!');
     }
-    
-    public function destroy(Post $post) {
-        $post->delete();
-        return redirect()->route('posts.index');
+
+    public function create()
+    {
+        return view('posts.create'); // Laadt de create view
     }
-    
+
+    public function destroy(Post $post)
+{
+    $post->delete();
+    return redirect()->route('posts.index')->with('success', 'Gerecht verwijderd!');
+}
 }

@@ -1,84 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title>@yield('title', 'Posts')</title>
+    <title>Restaurant</title>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 40px auto;
-            background: #f8f9fa;
-            padding: 20px;
-            color: #333;
-        }
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background-color: #f8f8f8;
+        color: #333;
+    }
 
-        h1 {
-            color: #2c3e50;
-        }
+    header, footer {
+        background-color: #333;
+        color: white;
+        padding: 15px 20px;
+        text-align: center;
+    }
 
-        a {
-            color: #3490dc;
-            text-decoration: none;
-        }
+    nav a {
+        color: white;
+        margin: 0 10px;
+        text-decoration: none;
+    }
 
-        a:hover {
-            text-decoration: underline;
-        }
+    main {
+        max-width: 700px;
+        margin: 30px auto;
+        background-color: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
 
-        form {
-            margin-top: 20px;
-        }
+    h1 {
+        margin-bottom: 20px;
+        font-size: 28px;
+    }
 
-        input[type="text"],
-        input[type="number"],
-        textarea {
-            width: 100%;
-            padding: 8px;
-            margin: 6px 0 12px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
+    form div {
+        margin-bottom: 15px;
+    }
 
-        button {
-            background-color: #3490dc;
-            color: white;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+    label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: bold;
+    }
 
-        button:hover {
-            background-color: #2779bd;
-        }
+    input[type="text"],
+    input[type="email"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 16px;
+    }
 
-        ul {
-            list-style: none;
-            padding: 0;
-        }
+    textarea {
+        height: 120px;
+        resize: vertical;
+    }
 
-        li {
-            padding: 8px;
-            background: white;
-            margin-bottom: 8px;
-            border-radius: 4px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    button {
+        background-color: #e67e22;
+        color: white;
+        padding: 10px 18px;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+    }
 
-        .actions a, .actions form {
-            display: inline-block;
-            margin-left: 10px;
-        }
+    button:hover {
+        background-color: #d35400;
+    }
+</style>
 
-        .actions form {
-            display: inline;
-        }
-    </style>
 </head>
 <body>
-    @yield('content')
+    <header>
+        <h1>Welkom bij ons restaurant</h1>
+        <nav>
+            <a href="{{ route('home') }}">Home</a> |
+            <a href="{{ route('menu') }}">Menukaart</a> |
+            <a href="{{ route('contact') }}">Contact</a>
+        </nav>
+    </header>
+
+    <main style="padding: 20px;">
+        @yield('content') {{-- ⬅️ HIER wordt de inhoud van je pagina getoond --}}
+    </main>
+
+    <footer>
+        <p>&copy; {{ date('Y') }} Ons Restaurant</p>
+    </footer>
 </body>
 </html>
